@@ -42,9 +42,19 @@ class ViewController: UIViewController {
         if valueEntryTextField.text != "" {
             binaryButton.alpha = 1.0
             decimalButton.alpha = 0.5
-            guard let string = valueEntryTextField.text, let intFromString = Int(string) else { return }
-            let binaryDigit = BinaryDecimal(intFromString)
-            valueEntryTextField.text = "\(binaryDigit.calculateBinaryValueForInt())"
+            var index = 1
+            var newString: String = ""
+            let strings: [String] = (valueEntryTextField.text?.components(separatedBy: CharacterSet.whitespaces))!
+            for string in strings {
+                guard let intFromString = Int(string) else { return }
+                let binaryDigit = BinaryDecimal(intFromString)
+                newString += "\(binaryDigit.calculateBinaryValueForInt())"
+                if index < strings.count {
+                    newString += " "
+                    index = index + 1
+                }
+            }
+            valueEntryTextField.text = newString
         }
     }
     
@@ -52,10 +62,19 @@ class ViewController: UIViewController {
         if valueEntryTextField.text != "" {
             binaryButton.alpha = 0.5
             decimalButton.alpha = 1.0
-            guard let string = valueEntryTextField.text else { return }
-            let bitsFromString = string.map { Int(String($0))! }
-            let binaryDigit = BinaryDecimal(bitsFromString)
-            valueEntryTextField.text = "\(binaryDigit.calculateIntValueForBinary())"
+            var index = 1
+            var newString: String = ""
+            let strings: [String] = (valueEntryTextField.text?.components(separatedBy: CharacterSet.whitespaces))!
+            for string in strings {
+                let bitsFromString = string.map { Int(String($0))! }
+                let binaryDigit = BinaryDecimal(bitsFromString)
+                newString += "\(binaryDigit.calculateIntValueForBinary())"
+                if index < strings.count {
+                    newString += " "
+                    index = index + 1
+                }
+            }
+            valueEntryTextField.text = newString
         }
     }
     
