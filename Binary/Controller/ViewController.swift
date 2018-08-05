@@ -44,9 +44,9 @@ class ViewController: UIViewController {
             decimalButton.alpha = 0.5
             var index = 1
             var newString: String = ""
-            let strings: [String] = (valueEntryTextField.text?.components(separatedBy: CharacterSet.whitespaces))!
+            guard let strings: [String] = (valueEntryTextField.text?.components(separatedBy: CharacterSet.whitespaces)) else { return }
             for string in strings {
-                guard let intFromString = Int(string) else { return }
+                let intFromString = Int(string)!
                 let binaryDigit = BinaryDecimal(intFromString)
                 newString += "\(binaryDigit.calculateBinaryValueForInt())"
                 if index < strings.count {
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
             decimalButton.alpha = 1.0
             var index = 1
             var newString: String = ""
-            let strings: [String] = (valueEntryTextField.text?.components(separatedBy: CharacterSet.whitespaces))!
+            guard let strings: [String] = (valueEntryTextField.text?.components(separatedBy: CharacterSet.whitespaces)) else { return }
             for string in strings {
                 let bitsFromString = string.map { Int(String($0))! }
                 let binaryDigit = BinaryDecimal(bitsFromString)
